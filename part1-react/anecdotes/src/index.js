@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 
 const H1 = ({ text }) => <h1>{text}</h1>;
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
-const Anecdote = ({ anecdote }) => <p>{anecdote}</p>;
+const Anecdotes = ({ anecdote }) => <p>{anecdote}</p>;
 const Votes = ({ votes }) => <p>has {votes} votes</p>;
 
 const App = ({ anecdotes }) => {
@@ -27,12 +27,12 @@ const App = ({ anecdotes }) => {
 return (
     <div>
       <H1 text="Anecdote of the day" />
-      <Anecdote anecdote={anecdotes[selected]} />
+      <Anecdotes anecdote={anecdotes[selected]} />
       <Votes votes={copy[selected]} />
-      <Button onClick={btnVote} text="vote" />
-      <Button onClick={btnRandom} text="next anecdote" />
-      <H1 text="Anecdote with most votes" />
-      <Anecdote anecdote={winningAnecdote} />
+      <Button onClick={btnVote} text='vote' />
+      <Button onClick={btnRandom} text='next anecdote' />
+      <H1 text='Anecdote with most votes' />
+      <Anecdotes anecdote={winningAnecdote} />
       <Votes votes={highestVotes} />
     </div>
   )
