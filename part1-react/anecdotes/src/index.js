@@ -2,23 +2,38 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 
-const App = (props) => {
+const H1 = ({ text }) => <h1>{text}</h1>;
+const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
+const Anecdote = ({ anecdote }) => <p>{anecdote}</p>;
+const Votes = ({ votes }) => <p>has {votes} votes</p>;
+
+const App = ({ anecdotes }) => {
   const [selected, setSelected] = useState(0)
+  const maxArray = anecdotes.length
+  const [copy, setCopy] = useState(new Array(maxArray).fill(0));
 
   const btnRandom = () => {
-    const maxArray = anecdotes.length
-    const randomNum = Math.floor(Math.random() * maxArray)
-    return setSelected(randomNum)
+    const randomNum = Math.floor(Math.random() * Math.floor(maxArray))
+    setSelected(randomNum)
   }
-
-
-
+  const btnVote = () => {
+    const pointsCopy = [...copy]
+    pointsCopy[selected] += 1
+    setCopy(pointsCopy)
+  }
+  const highestVotes = Math.max(...copy);
+  const winningAnecdote = anecdotes[copy.indexOf(highestVotes)];
+  
 return (
     <div>
-      <h3>
-      {props.anecdotes[selected]}
-      </h3>
-      <button onClick={btnRandom}>Next anecdote</button>
+      <H1 text="Anecdote of the day" />
+      <Anecdote anecdote={anecdotes[selected]} />
+      <Votes votes={copy[selected]} />
+      <Button onClick={btnVote} text="vote" />
+      <Button onClick={btnRandom} text="next anecdote" />
+      <H1 text="Anecdote with most votes" />
+      <Anecdote anecdote={winningAnecdote} />
+      <Votes votes={highestVotes} />
     </div>
   )
 }
@@ -34,7 +49,6 @@ const anecdotes = [
   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
 ]
 
-// const Root = () => document.getElementById('root')
 ReactDOM.render(
   <App anecdotes={anecdotes} />,
   document.getElementById('root')
