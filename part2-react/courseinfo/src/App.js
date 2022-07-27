@@ -1,44 +1,5 @@
 import './App.css';
-
-const Part = ({parts}) => {
-  if(typeof parts === 'undefined') {
-    return "No hay partes en este curso"
-  }
-  return (
-    <div>
-      {
-        parts.map((parts) => {
-          return <p key={parts.id}>{parts.name} {parts.exercises}</p>
-        })
-      }
-    </div>
-  )
-}
-
-const Total = ({parts}) => {
-  const maxParts = parts.length
-  let suma = 0
-  for (let i = 0; i < maxParts; i++) {
-    suma += parts[i].exercises
-  }
-  
-  return(
-    <p><strong>total of {suma} exercises</strong></p>
-  )
-}
-
-const Course = ({course}) =>{
-  return (
-    <div>
-    <h1>{course[0].name}</h1>
-    <Part parts={course[0].parts}/>
-    <Total parts={course[0].parts} />
-    <h1>{course[1].name}</h1>
-    <Part parts={course[1].parts}/>
-    <Total parts={course[1].parts} />
-    </div>
-  )
-}
+import { Course } from './Course';
 
 const App = () => {
   const course = [
